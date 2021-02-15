@@ -15,23 +15,6 @@ class MoviesController < ApplicationController
     else
       @movies = Movie.with_ratings(@ratings_to_show.keys)
     end
-    # a = Array.new()
-    # @all_ratings.each do |rat|
-    #   a.append(rat)
-    # # @sort = params[:sort] || session[:sort]
-    # # @ratings = params[:ratings]  || session[:ratings] || @all_ratings
-    #   if a.length()>1
-    #     @movies = Movie.where( { rating: a } ).order(@sort)
-    #   else
-    #     @movies = Movie.where( { rating: @all_ratings } ).order(@sort)
-    #   end
-    # session[:sort], session[:ratings] = @sort, @ratings
-    
-    # if params[:sort] != session[:sort] or params[:ratings] != session[:ratings]
-      # flash.keep
-      # redirect_to movies_path sort: @sort, ratings: @ratings
-    # end
-    # end
   end
     
     
