@@ -9,20 +9,23 @@ class MoviesController < ApplicationController
   def index
     # debugger
     @sort = params[:sort]
-    # case sort
-    # when 'title'
-    #   ordering,@title_header = {:order => :movie_title}, 'hilite'
-    # when 'release_date'
-    #   ordering,@release_date_header = {:order => :release_date}, 'hilite'
-    # debugger
-  
     @all_ratings = Movie.all_ratings
-    # @sort = params[:sort]
     
     if params[:ratings].nil?
+      @sort = session[:sort]
+      if params.has_key?(:commit)
+        @ratings_to_show = @all_ratings
+      else
       # debugger
-      @ratings_to_show = @all_ratings
+        # if session[:ratings].is_a? Array
+          # @ratings_to_show = session[:ratings]
+        # else
+        @ratings_to_show = session[:ratings]
+      end
       @movies = Movie.with_ratings(@ratings_to_show, @sort)
+      # if not(@sort.empty?)
+      session[:sort] = @sort
+      # end
       
     else
       # debugger
@@ -32,14 +35,15 @@ class MoviesController < ApplicationController
         @ratings_to_show = params[:ratings].keys
       end
       @movies = Movie.with_ratings(@ratings_to_show, @sort)
+      session[:ratings] = params[:ratings]
+      # if not(@sort.empty?)
+      session[:sort] = @sort
+      # end
     end
   end
     
     
     
-    
-
-
   def new
     # default: render 'new' template
   end
