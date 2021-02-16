@@ -8,7 +8,7 @@ class MoviesController < ApplicationController
 
   def index
     # debugger
-    sort = params[:sort]
+    @sort = params[:sort]
     # case sort
     # when 'title'
     #   ordering,@title_header = {:order => :movie_title}, 'hilite'
@@ -22,7 +22,7 @@ class MoviesController < ApplicationController
     if params[:ratings].nil?
       # debugger
       @ratings_to_show = @all_ratings
-      @movies = Movie.with_ratings(@ratings_to_show, sort)
+      @movies = Movie.with_ratings(@ratings_to_show, @sort)
       
     else
       # debugger
@@ -31,7 +31,7 @@ class MoviesController < ApplicationController
       else
         @ratings_to_show = params[:ratings].keys
       end
-      @movies = Movie.with_ratings(@ratings_to_show, sort)
+      @movies = Movie.with_ratings(@ratings_to_show, @sort)
     end
   end
     

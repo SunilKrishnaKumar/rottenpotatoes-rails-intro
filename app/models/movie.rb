@@ -8,7 +8,8 @@ class Movie < ActiveRecord::Base
         # if ratings_list.empty?
         #     movies = self.where( { rating: self.all_ratings} )
         # else
-        movies = self.where( { rating: ratings_list }).order(sort)
+        # debugger
+        movies = self.where( { rating: ratings_list }).order('%s ASC'[sort.to_s])
         # end
         return movies
     end
