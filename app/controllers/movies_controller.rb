@@ -7,15 +7,36 @@ class MoviesController < ApplicationController
   end
 
   def index
+    # debugger
+    sort = params[:sort]
+    # case sort
+    # when 'title'
+    #   ordering,@title_header = {:order => :movie_title}, 'hilite'
+    # when 'release_date'
+    #   ordering,@release_date_header = {:order => :release_date}, 'hilite'
+    # debugger
+  
     @all_ratings = Movie.all_ratings
-    @ratings_to_show = params[:ratings]
     # @sort = params[:sort]
-    if @ratings_to_show.nil?
-      @movies = Movie.all
+    
+    if params[:ratings].nil?
+      # debugger
+      @ratings_to_show = @all_ratings
+      @movies = Movie.with_ratings(@ratings_to_show, sort)
+      
     else
-      @movies = Movie.with_ratings(@ratings_to_show.keys)
+      # debugger
+      if params[:ratings].is_a? Array
+        @ratings_to_show = params[:ratings]
+      else
+        @ratings_to_show = params[:ratings].keys
+      end
+      @movies = Movie.with_ratings(@ratings_to_show, sort)
     end
   end
+    
+    
+    
     
 
 
