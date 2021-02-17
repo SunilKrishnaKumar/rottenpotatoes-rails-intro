@@ -9,24 +9,30 @@ class MoviesController < ApplicationController
   def index
     # session.clear
     # debugger
+    if(params[:sort].nil? && params[:ratings].nil?)
+      if(!session[:sort].nil? || !session[:ratings].nil?)
+        redirect_to movies_path(:sort=>session[:sort], :ratings=>session[:ratings])
+      end
+    end
     @sort = params[:sort]
     @all_ratings = Movie.all_ratings
-    debugger
+    # debugger
     @ratings_to_show = @all_ratings
     
     if params[:ratings].nil?
-      if params.has_key?(:commit)
+      @ratings_to_show = @all_ratings
+      # if params.has_key?(:commit)
         # debugger
-        @ratings_to_show = @all_ratings
-      else
-        @sort = session[:sort]
-        if session[:ratings].nil?
-          debugger
-          @ratings_to_show = @all_ratings
-        else
-          @ratings_to_show = session[:ratings]
-        end
-      end
+        # @ratings_to_show = @all_ratings
+      # else
+      #   @sort = session[:sort]
+      #   if session[:ratings].nil?
+      #     # debugger
+      #     @ratings_to_show = @all_ratings
+      #   else
+      #     @ratings_to_show = session[:ratings]
+      #   end
+      # end
       @movies = Movie.with_ratings(@ratings_to_show, @sort)
       # if not(@sort.empty?)
       session[:sort] = @sort
