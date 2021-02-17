@@ -9,15 +9,17 @@ class MoviesController < ApplicationController
   def index
     # session.clear
     # debugger
-    if(params[:sort].nil? && params[:ratings].nil?)
+    if(params[:sort].nil? && params[:ratings].nil? && !params.has_key?(:commit))
       if(!session[:sort].nil? || !session[:ratings].nil?)
+        # debugger
         redirect_to movies_path(:sort=>session[:sort], :ratings=>session[:ratings])
+        # [:sort, :ratings].each { |k| session.delete(k) }
       end
     end
     @sort = params[:sort]
     @all_ratings = Movie.all_ratings
     # debugger
-    @ratings_to_show = @all_ratings
+    # @ratings_to_show = @all_ratings
     
     if params[:ratings].nil?
       @ratings_to_show = @all_ratings
