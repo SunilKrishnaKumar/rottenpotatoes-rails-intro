@@ -5,10 +5,6 @@ class Movie < ActiveRecord::Base
     end
     
     def self.with_ratings(ratings_list, sort)
-        # if ratings_list.empty?
-        #     movies = self.where( { rating: self.all_ratings} )
-        # else
-        # debugger
         movies = self.where( { rating: ratings_list }).order(sort)
         # end
         return movies

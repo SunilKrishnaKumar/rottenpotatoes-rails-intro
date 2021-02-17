@@ -12,7 +12,6 @@ class MoviesController < ApplicationController
     @all_ratings = Movie.all_ratings
     
     if params[:ratings].nil?
-      @sort = session[:sort]
       if params.has_key?(:commit)
         @ratings_to_show = @all_ratings
       else
@@ -20,6 +19,7 @@ class MoviesController < ApplicationController
         # if session[:ratings].is_a? Array
           # @ratings_to_show = session[:ratings]
         # else
+        @sort = session[:sort]
         @ratings_to_show = session[:ratings]
       end
       @movies = Movie.with_ratings(@ratings_to_show, @sort)
