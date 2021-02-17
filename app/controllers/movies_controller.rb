@@ -7,24 +7,21 @@ class MoviesController < ApplicationController
   end
 
   def index
+    # session.clear
     # debugger
     @sort = params[:sort]
     @all_ratings = Movie.all_ratings
     
     if params[:ratings].nil?
-      if params.has_key?(:commit)
-        @ratings_to_show = @all_ratings
-      else
-      # debugger
-        # if session[:ratings].is_a? Array
-          # @ratings_to_show = session[:ratings]
-        # else
-        @sort = session[:sort]
-        @ratings_to_show = session[:ratings]
-      end
+      # if params.has_key?(:commit)
+      @ratings_to_show = @all_ratings
+      # else
+        # @sort = session[:sort]
+        # @ratings_to_show = session[:ratings]
+      # end
       @movies = Movie.with_ratings(@ratings_to_show, @sort)
       # if not(@sort.empty?)
-      session[:sort] = @sort
+      # session[:sort] = @sort
       # end
       
     else
@@ -35,9 +32,9 @@ class MoviesController < ApplicationController
         @ratings_to_show = params[:ratings].keys
       end
       @movies = Movie.with_ratings(@ratings_to_show, @sort)
-      session[:ratings] = params[:ratings]
+      # session[:ratings] = params[:ratings]
       # if not(@sort.empty?)
-      session[:sort] = @sort
+      # session[:sort] = @sort
       # end
     end
   end
