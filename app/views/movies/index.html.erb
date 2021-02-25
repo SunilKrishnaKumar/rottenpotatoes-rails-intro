@@ -3,6 +3,7 @@
 
 <%#  Part 2: Start here... %>
 <%= form_tag movies_path, method: :get, id: 'ratings_form' do %>
+  <%= hidden_field_tag :sort, @sort%>
   Include:
   <% @all_ratings.each do |rating| %>
     <div class="form-check  form-check-inline">
@@ -10,7 +11,9 @@
       <%= check_box_tag "ratings[#{rating}]", "1",  @ratings_to_show.include?(rating), class: 'form-check-input' %>
     </div>
   <% end %>
+  
   <%= submit_tag 'Refresh', id: 'ratings_submit', class: 'btn btn-primary' %>
+  
 <% end %>
 
 
